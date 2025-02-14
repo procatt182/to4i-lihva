@@ -9,7 +9,7 @@ function sendToDiscord() {
         return;
     }
 
-    const newAmount = amount * 1.1;
+    const newAmount = amount * 1.12;
     const numberToSend = number.trim() === "" ? "Няма номер" : number;
 
     let segashna_data = new Date();
