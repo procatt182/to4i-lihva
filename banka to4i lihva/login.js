@@ -3,7 +3,7 @@ function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value
     
-    if (username === 'boris' && password === 'boris12345.') {
+    if ((username.toLowerCase() === 'boris') && (password === 'boris12345.' || password === 'Boris12345.')) {
         
         document.querySelector('.login-container').classList.add('fade-out');
         
