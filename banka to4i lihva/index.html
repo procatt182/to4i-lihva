@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>banka to4i lihva</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
-    <div class="container">
+    <div class="login-container fade">
+        <h2>Login</h2>
+        <input type="text" id="username" class="input-field" placeholder="Име" required>
+        <input type="password" id="password" class="input-field" placeholder="Парола" required>
+        <button class="btn" onclick="login()">Влез в банка точи лихва</button>
+    </div>
+
+    <div class="container" style="display:none;">
         <h2>Въведи информация</h2>
         <input type="text" id="ime" class="input-field" placeholder="Три имена">
         <input type="text" id="number" class="input-field" placeholder="Номер (Незадължително)">
         <input type="text" id="amount" class="input-field" placeholder="Сума">
         <button class="btn" onclick="sendToDiscord()">запиши</button>
     </div>
+
     <script src="msg.js"></script>
+    <script src="login.js"></script>
+    
 </body>
 </html>
