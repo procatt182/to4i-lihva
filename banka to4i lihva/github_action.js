@@ -1,61 +1,60 @@
-// Define all variables first
-const token = process.env.GH_TOKEN;  // Retrieve the token from environment variables
-const owner = "procatt182";
-const repo = "bot";
-const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
-const branch = "main";
+document.addEventListener("DOMContentLoaded", function () {
+    const token = process.env.GH_TOKEN;  // Retrieve the token from environment variables
+    const owner = "procatt182";
+    const repo = "bot";
+    const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
+    const branch = "main";
 
-// Function to check if workflow is already running
-async function isWorkflowRunning() {
-    const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/runs?status=in_progress&branch=${branch}`;
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,  // Use the token from environment
-            "Accept": "application/vnd.github.v3+json"
+    async function isWorkflowRunning() {
+        const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/runs?status=in_progress&branch=${branch}`;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // Use the token from environment
+                "Accept": "application/vnd.github.v3+json"
+            }
+        });
+
+        if (!response.ok) {
+            // Enhanced logging for debugging
+            const errorDetails = await response.text();
+            console.error(`Error fetching workflow runs: ${response.statusText} - Status Code: ${response.status}`);
+            console.error(`Error details: ${errorDetails}`);
+            return false;
         }
-    });
 
-    if (!response.ok) {
-        // Enhanced logging for debugging
-        const errorDetails = await response.text();
-        console.error(`Error fetching workflow runs: ${response.statusText} - Status Code: ${response.status}`);
-        console.error(`Error details: ${errorDetails}`);
-        return false;
+        const data = await response.json();
+        console.log("Fetched workflow runs data:", data);
+
+        const activeRuns = data.workflow_runs.filter(run => run.status === "in_progress" || run.status === "queued");
+        return activeRuns.length > 0;
     }
 
-    const data = await response.json();
-    console.log("Fetched workflow runs data:", data);
+    async function triggerGitHubAction() {
+        if (await isWorkflowRunning()) {
+            alert("The bot is already running.");
+            return;
+        }
 
-    const activeRuns = data.workflow_runs.filter(run => run.status === "in_progress" || run.status === "queued");
-    return activeRuns.length > 0;
-}
+        const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`;
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,  // Use the token from environment
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ ref: branch })
+        });
 
-// Function to trigger the GitHub Action workflow
-async function triggerGitHubAction() {
-    if (await isWorkflowRunning()) {
-        alert("The bot is already running.");
-        return;
+        if (response.ok) {
+            alert("The bot was triggered successfully!");
+        } else {
+            // Log the error details for debugging
+            const errorDetails = await response.text();
+            console.error(`Error triggering workflow: ${response.statusText} - Status Code: ${response.status}`);
+            console.error(`Error details: ${errorDetails}`);
+            alert("Something went wrong: " + response.statusText);
+        }
     }
-
-    const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`;
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${token}`,  // Use the token from environment
-            "Accept": "application/vnd.github.v3+json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ ref: branch })
-    });
-
-    if (response.ok) {
-        alert("The bot was triggered successfully!");
-    } else {
-        // Log the error details for debugging
-        const errorDetails = await response.text();
-        console.error(`Error triggering workflow: ${response.statusText} - Status Code: ${response.status}`);
-        console.error(`Error details: ${errorDetails}`);
-        alert("Something went wrong: " + response.statusText);
-    }
-}
+});
