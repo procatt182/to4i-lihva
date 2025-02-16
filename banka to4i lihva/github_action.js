@@ -1,8 +1,7 @@
-
-const token = "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";
+const token = "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"; // Replace with a freshly generated token
 const owner = "procatt182";
 const repo = "bot";
-const workflow = "main.yml";
+const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
 const branch = "main";
 
 async function isWorkflowRunning() {
@@ -16,7 +15,10 @@ async function isWorkflowRunning() {
     });
 
     if (!response.ok) {
-        console.error("naeba se neshto: " + response.statusText);
+        // Enhanced logging for debugging
+        const errorDetails = await response.text();
+        console.error(`Error fetching workflow runs: ${response.statusText} - Status Code: ${response.status}`);
+        console.error(`Error details: ${errorDetails}`);
         return false;
     }
 
@@ -29,7 +31,7 @@ async function isWorkflowRunning() {
 
 async function triggerGitHubAction() {
     if (await isWorkflowRunning()) {
-        alert("bota ve4e raboti.");
+        alert("The bot is already running.");
         return;
     }
 
@@ -45,8 +47,12 @@ async function triggerGitHubAction() {
     });
 
     if (response.ok) {
-        alert("bota e pusnat uspeshno");
+        alert("The bot was triggered successfully!");
     } else {
-        alert("naeba se neshto: " + response.statusText);
+        // Log the error details for debugging
+        const errorDetails = await response.text();
+        console.error(`Error triggering workflow: ${response.statusText} - Status Code: ${response.status}`);
+        console.error(`Error details: ${errorDetails}`);
+        alert("Something went wrong: " + response.statusText);
     }
 }
