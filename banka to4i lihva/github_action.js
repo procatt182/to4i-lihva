@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const token = process.env.GH_TOKEN;  // Retrieve the token from environment variables
-    const owner = "procatt182";
     const repo = "bot";
     const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
     const branch = "main";
 
     async function isWorkflowRunning() {
-        const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/runs?status=in_progress&branch=${branch}`;
+        const url = `https://api.github.com/repos/procatt182/${repo}/actions/workflows/${workflow}/runs?status=in_progress&branch=${branch}`;
         const response = await fetch(url, {
             method: "GET",
             headers: {
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`;
+        const url = `https://api.github.com/repos/procatt182/${repo}/actions/workflows/${workflow}/dispatches`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
