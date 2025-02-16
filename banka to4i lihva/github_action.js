@@ -1,4 +1,4 @@
-const token = "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"; // Replace with a freshly generated token
+const token = process.env.GH_TOKEN; // Replace with a freshly generated token
 const owner = "procatt182";
 const repo = "bot";
 const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
