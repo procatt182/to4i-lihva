@@ -20,12 +20,12 @@
         <input type="text" id="number" class="input-field" placeholder="Номер (Незадължително)">
         <input type="text" id="amount" class="input-field" placeholder="Сума">
         <button class="btn" onclick="sendToDiscord()">запиши</button>
-        <button class="btn" onclick="triggerGitHubAction()">pusni bota za btl</button>
+        <button class="btn" id="triggerButton" onclick="triggerGitHubAction()">pusni bota za btl</button>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
     <script src="msg.js"></script>
   <script src="login.js"></script>
-  <script src="github_action.js"></script>
+  <script src="github_action.js" defer></script>
 </body>
 </html>
