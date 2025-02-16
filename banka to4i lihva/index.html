@@ -7,14 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-container fade">
-        <h2>Login</h2>
-        <input type="text" id="username" class="input-field" placeholder="Име" required>
-        <input type="password" id="password" class="input-field" placeholder="Парола" required>
-        <button class="btn" onclick="login()">Влез в банка точи лихва</button>
-    </div>
-    
-    <div class="container" style="display:none;">
+    <!-- Main Content Container -->
+    <div class="container">
         <h2>Въведи информация</h2>
         <input type="text" id="ime" class="input-field" placeholder="Три имена">
         <input type="text" id="number" class="input-field" placeholder="Номер (Незадължително)">
@@ -22,10 +16,11 @@
         <button class="btn" onclick="sendToDiscord()">запиши</button>
         <button class="btn" id="triggerButton" onclick="triggerGitHubAction()">pusni bota za btl</button>
     </div>
-    
+
+    <!-- External Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
     <script src="msg.js"></script>
-  <script src="login.js"></script>
-  <script src="github_action.js" defer></script>
+    <script src="login.js"></script>
+    <script src="github_action.js" defer></script>
 </body>
 </html>
