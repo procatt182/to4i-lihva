@@ -1,15 +1,17 @@
-const token = process.env.GH_TOKEN; // Replace with a freshly generated token
+// Define all variables first
+const token = process.env.GH_TOKEN;  // Retrieve the token from environment variables
 const owner = "procatt182";
 const repo = "bot";
 const workflow = "main.yml";  // Make sure the filename matches exactly with your GitHub workflow
 const branch = "main";
 
+// Function to check if workflow is already running
 async function isWorkflowRunning() {
     const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/runs?status=in_progress&branch=${branch}`;
     const response = await fetch(url, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,  // Use the token from environment
             "Accept": "application/vnd.github.v3+json"
         }
     });
@@ -29,6 +31,7 @@ async function isWorkflowRunning() {
     return activeRuns.length > 0;
 }
 
+// Function to trigger the GitHub Action workflow
 async function triggerGitHubAction() {
     if (await isWorkflowRunning()) {
         alert("The bot is already running.");
@@ -39,7 +42,7 @@ async function triggerGitHubAction() {
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,  // Use the token from environment
             "Accept": "application/vnd.github.v3+json",
             "Content-Type": "application/json"
         },
