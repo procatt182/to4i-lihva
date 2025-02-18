@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>banka to4i lihva</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <!-- Main Content Container -->
+    <div class="container">
+        <h2>Въведи информация</h2>
+        <input type="text" id="ime" class="input-field" placeholder="Три имена">
+        <input type="text" id="number" class="input-field" placeholder="Номер (Незадължително)">
+        <input type="text" id="amount" class="input-field" placeholder="Сума">
+        <button class="btn" onclick="addData()">Запиши</button>
+
+        <!-- GitHub Releases APK Download Button -->
+        <a class="btn" href="https://github.com/procatt182/your-repo/releases/download/v1.0.0/app-release.apk" download>
+            Изтегли мобилно приложение
+        </a>
+
+        <h3>Кредити:</h3>
+        <ul id="dataList"></ul>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="dbfunc.js"></script>
+</body>
+</html>
